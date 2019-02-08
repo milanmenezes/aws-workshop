@@ -37,7 +37,7 @@ cd /var/www/nisb.tk/public_html/
 //git clone
 sudo git init
 
-sudo git remote add origin https://github.com/nisbweb/awsproject.git
+sudo git remote add origin https://github.com/BlackrockDigital/startbootstrap-resume.git
 
 sudo git pull origin master
 
