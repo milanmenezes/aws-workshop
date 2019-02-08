@@ -1,0 +1,54 @@
+//Enable password authentication 
+sudo vi /etc/ssh/sshd_config
+	PasswordAuth yes
+
+//Create a non-root user with sudo access
+sudo adduser username
+sudo usermod -aG sudo username
+sudo reboot
+
+//install and setup apache
+sudo apt-get update
+sudo apt-get install apache2 apache2-doc apache2-utils
+sudo a2dissite 000-default.conf
+
+//create a virtual host
+sudo vi /etc/apache2/sites-available/nisb.tk.conf
+
+//The file's contents
+<VirtualHost *:80>
+     ServerAdmin webmaster@nisb.tk
+     ServerName nisb.tk
+     ServerAlias www.nisb.tk
+     DocumentRoot /var/www/nisb.tk/public_html/
+     ErrorLog /var/www/nisb.tk/logs/error.log
+     CustomLog /var/www/nisb.tk/logs/access.log combined
+</VirtualHost>
+
+sudo mkdir -p /var/www/nisb.tk/public_html
+sudo mkdir /var/www/nisb.tk/logs
+
+sudo a2ensite nisb.tk.conf
+	
+sudo service apache2 restart
+
+cd /var/www/nisb.tk/public_html/
+
+//git clone
+sudo git init
+
+sudo git remote add origin https://github.com/nisbweb/awsproject.git
+
+sudo git pull origin master
+
+//Install certbot for SSL/TLS cetificate
+ sudo apt-get install software-properties-common
+
+ sudo add-apt-repository ppa:certbot/certbot
+
+ sudo apt-get update
+
+ sudo apt-get install python-certbot-apache 
+
+ sudo certbot --apache
+ sudo certbot renew --dry-run
